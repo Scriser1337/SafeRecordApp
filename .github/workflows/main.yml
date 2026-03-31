@@ -1,11 +1,11 @@
 name: Build Android APK
-on: [push, pull_request] # Сборка будет запускаться при каждом обновлении кода
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Get Date
         id: get-date
@@ -13,7 +13,7 @@ jobs:
           echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Cache Buildozer
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .buildozer
           key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}-${{ steps.get-date.outputs.date }}
@@ -26,7 +26,7 @@ jobs:
           repository_root: .
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: SafeRecord-APK
           path: bin/*.apk
